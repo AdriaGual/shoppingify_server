@@ -18,4 +18,9 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function lists()
+    {
+        return $this->belongsToMany(Lista::class,'item_list');
+    }
+
 }
