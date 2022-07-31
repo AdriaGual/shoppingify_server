@@ -15,7 +15,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        return Item::all()->sortBy('category_id');
     }
 
     /**
