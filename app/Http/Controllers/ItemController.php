@@ -70,9 +70,14 @@ class ItemController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $item = Category::findOrFail($request->input('id'));
+        $item->name = $request->input('name');
+
+        $item->save();
+
+        return $item;
     }
 
     /**

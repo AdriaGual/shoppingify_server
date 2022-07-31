@@ -69,9 +69,14 @@ class ListaController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
-        //
+        $list = Lista::findOrFail($request->input('id'));
+        $list->name = $request->input('name');
+
+        $list->save();
+
+        return $list;
     }
 
     /**
