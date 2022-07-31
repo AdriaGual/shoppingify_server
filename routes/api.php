@@ -21,10 +21,16 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
+Route::get('/categories/find_by_name', [CategoryController::class, 'find_by_name']);
+Route::get('/items/find_by_name', [ItemController::class, 'find_by_name']);
+Route::get('/lists/find_by_name', [ListaController::class, 'find_by_name']);
+
+Route::post('/items/add_to_list',[ItemController::class, 'add_to_list']);
+
 Route::resource('items',ItemController::class);
 
 Route::resource('categories',CategoryController::class);
 
 Route::resource('lists',ListaController::class);
 
-Route::post('/items/add_to_list',ItemController::class.'@add_to_list');
+

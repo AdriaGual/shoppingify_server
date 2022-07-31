@@ -53,6 +53,17 @@ class ItemController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function find_by_name(Request $request)
+    {
+        return Item::where('name','=',$request->input('name'))->first();
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

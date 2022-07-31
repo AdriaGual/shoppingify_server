@@ -51,6 +51,19 @@ class CategoryController extends Controller
         return Category::findOrFail($id);
     }
 
+    
+    /**
+     * Display the specified resource.
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function find_by_name(Request $request)
+    {
+        return Category::where('name','=',$request->input('name'))->first();
+    }
+
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -69,7 +82,7 @@ class CategoryController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request)
     {
         $category = Category::findOrFail($request->input('id'));
         $category->name = $request->input('name');
@@ -90,4 +103,6 @@ class CategoryController extends Controller
         $category = Category::findOrFail($id);
         $category->delete();
     }
+
+
 }
