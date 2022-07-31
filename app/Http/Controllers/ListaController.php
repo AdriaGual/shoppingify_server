@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
 use App\Models\Lista;
 
-class ItemController extends Controller
+class ListaController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        return Lista::all();
     }
 
     /**
@@ -36,9 +35,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Item;
-        $item->name = $request->input('name');
-        $item->save();
+        $list = new Lista;
+        $list->name = $request->input('name');
+        $list->save();
     }
 
     /**
@@ -49,7 +48,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return Item::findOrFail($id);
+        return Lista::findOrFail($id);
     }
 
     /**
@@ -83,25 +82,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $item = Item::findOrFail($id);
-        $item->delete();
-    }
-
-    
-    /**
-     * Add item to a list.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function add_to_list(Request $request)
-    {
-        $item = Item::findOrFail($request->input('item_id'));
-        $list = Lista::findOrFail($request->input('list_id'));
-        if (!$item->lists->contains($request->input('list_id'))){
-            $item->lists()->attach($list);
-        }
-        
-        return 200;
+        $list = Lista::findOrFail($id);
+        $list->delete();
     }
 }

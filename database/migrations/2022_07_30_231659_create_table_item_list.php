@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->integer('item_id');
             $table->integer('lista_id');
-            $table->timestamps();
         });
     }
 

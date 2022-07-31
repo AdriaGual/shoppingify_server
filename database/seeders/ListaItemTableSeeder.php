@@ -16,39 +16,27 @@ class ListaItemTableSeeder extends Seeder
     {
         \DB::table('item_list')->insert([
         	'item_id' => 1,
-        	'lista_id' => 1,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 1
         ]);
         \DB::table('item_list')->insert([
         	'item_id' => 1,
-        	'lista_id' => 2,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 2
         ]);
         \DB::table('item_list')->insert([
         	'item_id' => 2,
-        	'lista_id' => 1,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 1
         ]);
         \DB::table('item_list')->insert([
         	'item_id' => 2,
-        	'lista_id' => 2,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 2
         ]);
         \DB::table('item_list')->insert([
         	'item_id' => 3,
-        	'lista_id' => 1,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 1
         ]);
         \DB::table('item_list')->insert([
         	'item_id' => 4,
-        	'lista_id' => 3,
-        	'created_at' => NOW(),
-        	'updated_at' => NOW()
+        	'lista_id' => 3
         ]);
         
     }

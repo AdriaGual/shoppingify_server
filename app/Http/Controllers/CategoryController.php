@@ -3,10 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Item;
-use App\Models\Lista;
+use App\Models\Category;
 
-class ItemController extends Controller
+class CategoryController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,7 +14,7 @@ class ItemController extends Controller
      */
     public function index()
     {
-        return Item::all();
+        return Category::all();
     }
 
     /**
@@ -36,9 +35,9 @@ class ItemController extends Controller
      */
     public function store(Request $request)
     {
-        $item = new Item;
-        $item->name = $request->input('name');
-        $item->save();
+        $category = new Category;
+        $category->name = $request->input('name');
+        $category->save();
     }
 
     /**
@@ -49,7 +48,7 @@ class ItemController extends Controller
      */
     public function show($id)
     {
-        return Item::findOrFail($id);
+        return Category::findOrFail($id);
     }
 
     /**
@@ -83,25 +82,7 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
-        $item = Item::findOrFail($id);
-        $item->delete();
-    }
-
-    
-    /**
-     * Add item to a list.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function add_to_list(Request $request)
-    {
-        $item = Item::findOrFail($request->input('item_id'));
-        $list = Lista::findOrFail($request->input('list_id'));
-        if (!$item->lists->contains($request->input('list_id'))){
-            $item->lists()->attach($list);
-        }
-        
-        return 200;
+        $category = Category::findOrFail($id);
+        $category->delete();
     }
 }

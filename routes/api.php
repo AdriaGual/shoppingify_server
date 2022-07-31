@@ -3,6 +3,8 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ListaController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,3 +22,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::resource('items',ItemController::class);
+
+Route::resource('categories',CategoryController::class);
+
+Route::resource('lists',ListaController::class);
+
+Route::post('/items/add_to_list',ItemController::class.'@add_to_list');
