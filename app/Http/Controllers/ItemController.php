@@ -85,6 +85,9 @@ class ItemController extends Controller
     {
         $item = Category::findOrFail($request->input('id'));
         $item->name = $request->input('name');
+        $item->category_id = $request->input('category_id');
+        $item->note = $request->input('note');
+        $item->image = $request->input('image');
 
         $item->save();
 

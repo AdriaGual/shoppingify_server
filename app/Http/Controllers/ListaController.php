@@ -39,6 +39,8 @@ class ListaController extends Controller
     {
         $list = new Lista;
         $list->name = $request->input('name');
+        $list->active = $request->input('active');
+        $list->user_id = $request->input('user_id');
         $list->save();
     }
 
@@ -77,6 +79,46 @@ class ListaController extends Controller
     }
 
     /**
+     * Add an item to a list.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function add_item_to_list($item_id,$list_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $list = Lista::findOrFail($list_id);
+        if (!$item->lists->contains($list_id)){
+            $item->lists()->attach($list);
+            return $item;
+        }
+        
+        return 400;
+    }
+
+    /**
+     * Set the active list and deactivate the others.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function set_active_list($list_id)
+    {
+        $lists = Lista::all();
+        foreach($lists as $list){
+            if ($list->id != $list_id and $list->active){
+                $list->active = false;
+            }
+            else if ($list->id == $list_id and !$list->active){
+                $list->active = true;
+            }
+            $list->save();
+        }
+        
+        return 200;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
@@ -97,6 +139,8 @@ class ListaController extends Controller
     {
         $list = Lista::findOrFail($request->input('id'));
         $list->name = $request->input('name');
+        $list->active = $request->input('active');
+        $list->user_id = $request->input('user_id');
         
         $list->save();
 
@@ -138,21 +182,5 @@ class ListaController extends Controller
         $list->delete();
     }
 
-    /**
-     * Add an item to a list.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function add_item_to_list($item_id,$list_id)
-    {
-        $item = Item::findOrFail($item_id);
-        $list = Lista::findOrFail($list_id);
-        if (!$item->lists->contains($list_id)){
-            $item->lists()->attach($list);
-            return $item;
-        }
-        
-        return 400;
-    }
+
 }
