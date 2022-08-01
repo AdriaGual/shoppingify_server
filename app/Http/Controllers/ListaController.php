@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Lista;
 use App\Models\Item;
+use Illuminate\Support\Facades\DB;
 
 class ListaController extends Controller
 {
@@ -90,17 +91,39 @@ class ListaController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request)
     {
         $list = Lista::findOrFail($request->input('id'));
         $list->name = $request->input('name');
-
+        
         $list->save();
 
         return $list;
+    }
+
+    /**
+     * Add the new items and update the quantity for each item
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_list_items(Request $request)
+    {
+        $list = Lista::findOrFail($request->input('list_id'));
+        $items = json_decode($request->input('items'),true);
+
+        foreach ($items as $item) {
+            $this->add_item_to_list($item['id'],$list->id);
+
+            $item_in_list = DB::table('item_list')
+            ->where('item_id', '=', $item['id'])
+            ->where('lista_id', '=', $request->input('list_id'))
+            ->update(['quantity'=>$item['pivot']['quantity']]);
+        }
+
+        return $list->items;
     }
 
     /**
@@ -113,5 +136,23 @@ class ListaController extends Controller
     {
         $list = Lista::findOrFail($id);
         $list->delete();
+    }
+
+    /**
+     * Add an item to a list.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function add_item_to_list($item_id,$list_id)
+    {
+        $item = Item::findOrFail($item_id);
+        $list = Lista::findOrFail($list_id);
+        if (!$item->lists->contains($list_id)){
+            $item->lists()->attach($list);
+            return $item;
+        }
+        
+        return 400;
     }
 }

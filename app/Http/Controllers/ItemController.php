@@ -104,20 +104,5 @@ class ItemController extends Controller
     }
 
     
-    /**
-     * Add item to a list.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function add_to_list(Request $request)
-    {
-        $item = Item::findOrFail($request->input('item_id'));
-        $list = Lista::findOrFail($request->input('list_id'));
-        if (!$item->lists->contains($request->input('list_id'))){
-            $item->lists()->attach($list);
-        }
-        
-        return 200;
-    }
+
 }

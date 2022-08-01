@@ -27,7 +27,9 @@ Route::get('/lists/find_by_name', [ListaController::class, 'find_by_name']);
 
 Route::get('/lists/find_items/{id}', [ListaController::class, 'find_items']);
 
-Route::post('/items/add_to_list',[ItemController::class, 'add_to_list']);
+Route::put('/lists/update_list_items', [ListaController::class, 'update_list_items']);
+
+Route::post('/lists/add_item_to_list/{item_id}/{list_id}',[ListaController::class, 'add_item_to_list']);
 
 Route::resource('items',ItemController::class);
 
