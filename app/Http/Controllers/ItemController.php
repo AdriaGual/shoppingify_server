@@ -38,6 +38,9 @@ class ItemController extends Controller
     {
         $item = new Item;
         $item->name = $request->input('name');
+        $item->category_id = $request->input('category_id');
+        $item->note = $request->input('note');
+        $item->image = $request->input('image');
         $item->save();
     }
 
