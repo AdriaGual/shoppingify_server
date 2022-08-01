@@ -20,7 +20,7 @@ class Item extends Model
 
     public function lists()
     {
-        return $this->belongsToMany(Lista::class,'item_list');
+        return $this->belongsToMany(Lista::class,'item_list')->withPivot('quantity');
     }
 
 }

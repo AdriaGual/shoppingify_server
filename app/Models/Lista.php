@@ -12,6 +12,6 @@ class Lista extends Model
 
     public function items()
     {
-        return $this->belongsToMany(Item::class,'item_list');
+        return $this->belongsToMany(Item::class,'item_list')->withPivot('quantity');
     }
 }

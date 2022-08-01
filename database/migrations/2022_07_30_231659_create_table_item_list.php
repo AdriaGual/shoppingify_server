@@ -17,6 +17,8 @@ return new class extends Migration
             $table->id();
             $table->integer('item_id');
             $table->integer('lista_id');
+            $table->integer('quantity')->default(1);
+            $table->unique(['item_id', 'lista_id']);
         });
     }
 

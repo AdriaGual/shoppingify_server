@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Lista;
+use App\Models\Item;
 
 class ListaController extends Controller
 {
@@ -60,6 +61,18 @@ class ListaController extends Controller
     public function find_by_name(Request $request)
     {
         return Lista::where('name','=',$request->input('name'))->first();
+    }
+
+    /**
+     * Display items from a list.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function find_items($id)
+    {
+        $lista = Lista::findOrFail($id);        
+        return $lista->items;
     }
 
     /**
