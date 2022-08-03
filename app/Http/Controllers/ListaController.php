@@ -91,6 +91,20 @@ class ListaController extends Controller
         $filtered_categories = [];
         foreach($all_categories as $category){
             $filtered_items = $list->items->where("category_id","=",$category->id);
+            $count_filtered_items = count($filtered_items);
+            if (count($filtered_items)==1){
+                $filtered_item = $filtered_items[array_keys(json_decode($filtered_items,true))[0]];
+                $item = new Item;
+                $item->id = $filtered_item->id;
+                $item-> name = $filtered_item->name;
+                $item-> note = $filtered_item->note;
+                $item-> image = $filtered_item->image;
+                $item-> category_id = $filtered_item->category_id;
+                $item-> created_at = $filtered_item->created_at;
+                $item-> updated_at = $filtered_item->updated_at;
+                $item-> pivot = $filtered_item->pivot;
+                $filtered_items = array($item);
+            }
             $category->items = $filtered_items;
             $filtered_categories[] =$category;
         }
