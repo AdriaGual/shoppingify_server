@@ -67,6 +67,17 @@ class ListaController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function find_by_user_id(Request $request)
+    {
+        return Lista::where('user_id','=',$request->input('user_id'))->where('active','=',1)->first();
+    }
+
+    /**
      * Display items from a list.
      *
      * @param  int  $id
