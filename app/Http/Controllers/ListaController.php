@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Lista;
 use App\Models\Item;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\CategoryController;
 
 class ListaController extends Controller
 {
@@ -74,7 +75,28 @@ class ListaController extends Controller
      */
     public function find_by_user_id(Request $request)
     {
-        return Lista::where('user_id','=',$request->input('user_id'))->where('active','=',1)->first();
+        $list = Lista::where('user_id','=',$request->input('user_id'))->where('active','=',1)->first();
+        $json_list = new Lista;
+        $json_list->id = $list->id;
+        $json_list->name = $list->name;
+
+        $all_categories=[];
+        foreach($list->items as $item){
+            $category=(new CategoryController)->show($item->category_id);
+            if (!in_array($category, $all_categories)){
+                $all_categories[] = $category;
+            }
+        }
+
+        $filtered_categories = [];
+        foreach($all_categories as $category){
+            $filtered_items = $list->items->where("category_id","=",$category->id);
+            $category->items = $filtered_items;
+            $filtered_categories[] =$category;
+        }
+
+        $json_list['categories']=$filtered_categories;
+        return $json_list;
     }
 
     /**
