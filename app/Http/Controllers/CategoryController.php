@@ -28,6 +28,26 @@ class CategoryController extends Controller
     }
 
     /**
+     * Display a listing of the items for each category resource.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function get_items()
+    {
+        $categories = Category::all();
+        $data = [];
+        foreach($categories as $category){
+            $json_category = new Category;
+            $json_category->id = $category['id'];
+            $json_category->name = $category['name'];
+            $json_category->items = $category['items'];
+            
+            $data[] = $json_category;
+        }
+        return $data;
+    }
+
+    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
