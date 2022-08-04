@@ -31,11 +31,16 @@ Route::middleware(['cors'])->group(function () {
 
     Route::get('/categories/get_items', [CategoryController::class, 'get_items']);
 
-    Route::put('/lists/update_list_items', [ListaController::class, 'update_list_items']);
-
+    
     Route::post('/lists/set_active_list/{list_id}',[ListaController::class, 'set_active_list']);
 
     Route::post('/lists/add_item_to_list/{item_id}/{list_id}',[ListaController::class, 'add_item_to_list']);
+
+    Route::put('/lists/update_list_items', [ListaController::class, 'update_list_items']);
+
+    Route::put('/lists/update_item_quantity', [ListaController::class, 'update_item_quantity']);
+
+    Route::delete('/lists/remove_item_from_list', [ListaController::class, 'remove_item_from_list']);
 
     Route::resource('items',ItemController::class);
 

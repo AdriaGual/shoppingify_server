@@ -219,6 +219,39 @@ class ListaController extends Controller
     }
 
     /**
+     * Update the quantity of an item in the list
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function update_item_quantity(Request $request)
+    {
+        $item_in_list = DB::table('item_list')
+        ->where('item_id', '=', $request->input('item_id'))
+        ->where('lista_id', '=', $request->input('list_id'))
+        ->update(['quantity'=>$request->input('quantity')]);
+
+        return $item_in_list;
+    }
+
+    
+    /**
+     * Delete an item from the list
+     *
+     * @param  \Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     */
+    public function remove_item_from_list(Request $request)
+    {
+        $item_in_list = DB::table('item_list')
+        ->where('item_id', '=', $request->input('item_id'))
+        ->where('lista_id', '=', $request->input('list_id'))
+        ->delete();
+
+        return 200;
+    }
+
+    /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
