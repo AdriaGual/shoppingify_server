@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Item;
 use App\Models\Lista;
+use Illuminate\Support\Facades\DB;
 
 class ItemController extends Controller
 {
@@ -105,10 +106,11 @@ class ItemController extends Controller
      */
     public function destroy($id)
     {
+        $items_in_list = DB::table('item_list')
+        ->where('item_id', '=', $id)->delete();
+
         $item = Item::findOrFail($id);
         $item->delete();
     }
-
-    
 
 }
