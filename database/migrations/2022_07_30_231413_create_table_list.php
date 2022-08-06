@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->boolean('active');
             $table->uuid('user_id');
+            $table->boolean('canceled')->default(false);
             $table->timestamps();
         });
     }

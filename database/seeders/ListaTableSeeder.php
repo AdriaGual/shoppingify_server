@@ -18,6 +18,7 @@ class ListaTableSeeder extends Seeder
         	'name' => 'Primera lista',
         	'active' => true,
             'user_id' => 'd267f964-105e-11ed-861d-0242ac120002',
+            'canceled' => false,
         	'created_at' => NOW(),
         	'updated_at' => NOW()
         ]);
@@ -25,6 +26,7 @@ class ListaTableSeeder extends Seeder
         	'name' => 'Segunda lista',
         	'active' => false,
             'user_id' => 'd267f964-105e-11ed-861d-0242ac120002',
+            'canceled' => false,
         	'created_at' => NOW(),
         	'updated_at' => NOW()
         ]);
@@ -32,6 +34,7 @@ class ListaTableSeeder extends Seeder
         	'name' => 'Tercera lista',
         	'active' => false,
             'user_id' => 'd267f964-105e-11ed-861d-0242ac120002',
+            'canceled' => false,
         	'created_at' => NOW(),
         	'updated_at' => NOW()
         ]);
@@ -39,6 +42,7 @@ class ListaTableSeeder extends Seeder
         	'name' => 'Cuarta lista',
         	'active' => false,
             'user_id' => 'd267f964-105e-11ed-861d-0242ac120002',
+            'canceled' => true,
         	'created_at' => NOW(),
         	'updated_at' => NOW()
         ]);
