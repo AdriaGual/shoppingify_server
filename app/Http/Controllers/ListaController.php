@@ -127,6 +127,37 @@ class ListaController extends Controller
     }
 
     /**
+     * Display inactive lists grouped by month and year.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function find_lists_by_month_year(Request $request)
+    {
+        $months = DB::table("list")
+        ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') AS new_date")
+        ->where("active","=","0")
+        ->where("user_id","=",$request->input('user_id'))
+        ->orderBy('created_at',"DESC")
+        ->groupBy('new_date')
+        ->get();
+
+        $lists_by_month = [];
+        foreach ($months as $month){
+            $month_year = $month->new_date;
+            $list = DB::table("list")
+            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at, '%Y-%m') AS new_date,DATE_FORMAT(created_at, '%d.%m.%y') AS created_at")
+            ->where("active","=","0")
+            ->where("user_id","=",$request->input('user_id'))
+            ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"),"=",$month_year)
+            ->get();
+            $lists_by_month[] = $list;
+        }
+        
+        return $lists_by_month;
+    }
+
+    /**
      * Add an item to a list.
      *
      * @param  int  $id

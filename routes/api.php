@@ -29,9 +29,10 @@ Route::middleware(['cors'])->group(function () {
 
     Route::get('/lists/find_items/{id}', [ListaController::class, 'find_items']);
 
+    Route::get('/lists/find_lists_by_month_year', [ListaController::class, 'find_lists_by_month_year']);
+
     Route::get('/categories/get_items', [CategoryController::class, 'get_items']);
 
-    
     Route::post('/lists/set_active_list/{list_id}',[ListaController::class, 'set_active_list']);
 
     Route::post('/lists/add_item_to_list/{item_id}/{list_id}',[ListaController::class, 'add_item_to_list']);
