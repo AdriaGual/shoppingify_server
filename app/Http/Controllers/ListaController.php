@@ -146,7 +146,7 @@ class ListaController extends Controller
         foreach ($months as $month){
             $month_year = $month->new_date;
             $list = DB::table("list")
-            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at, '%Y-%m') AS new_date,DATE_FORMAT(created_at, '%d.%m.%y') AS created_at, MONTHNAME(created_at) AS month,DATE_FORMAT(created_at, '%Y') AS year")
+            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at, '%Y-%m') AS new_date,DATE_FORMAT(created_at, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at, '%Y') AS year")
             ->where("active","=","0")
             ->where("user_id","=",$request->input('user_id'))
             ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"),"=",$month_year)
