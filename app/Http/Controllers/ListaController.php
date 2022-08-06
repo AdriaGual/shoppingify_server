@@ -199,6 +199,20 @@ class ListaController extends Controller
     }
 
     /**
+     * Put the active list to inactive and create a new list
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function cancel_complete_list(Request $request) {
+        $list = Lista::findOrFail($request->input('list_id'));
+        $list->canceled = $request->input('canceled');
+        $list->active = false;
+        $list->save();
+        return 200;
+    }
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  int  $id

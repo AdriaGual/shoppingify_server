@@ -35,6 +35,8 @@ Route::middleware(['cors'])->group(function () {
 
     Route::post('/lists/set_active_list/{list_id}',[ListaController::class, 'set_active_list']);
 
+    Route::post('/lists/cancel_complete_list',[ListaController::class, 'cancel_complete_list']);
+
     Route::post('/lists/add_item_to_list/{item_id}/{list_id}',[ListaController::class, 'add_item_to_list']);
 
     Route::put('/lists/update_list_items', [ListaController::class, 'update_list_items']);
