@@ -187,7 +187,7 @@ class ListaController extends Controller
         ->where("active","=","0")
         ->where("user_id","=",$request->input('user_id'))
         ->orderBy('created_at',"DESC")
-        ->groupBy('new_date')
+        ->groupBy('created_at')
         ->get();
 
         $lists_by_month = [];
@@ -219,7 +219,7 @@ class ListaController extends Controller
         ->selectRaw("to_char(created_at , 'YYYY-MM') AS new_date")
         ->where("active","=","0")
         ->orderBy('created_at',"DESC")
-        ->groupBy('new_date')
+        ->groupBy('created_at')
         ->get();
 
         $lists_by_month = [];
