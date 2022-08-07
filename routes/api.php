@@ -27,6 +27,8 @@ Route::middleware(['cors'])->group(function () {
 
     Route::get('/lists/find_by_user_id', [ListaController::class, 'find_by_user_id']);
 
+    Route::get('/lists/find_items_grouped_by_category', [ListaController::class, 'find_items_grouped_by_category']);
+
     Route::get('/lists/find_items/{id}', [ListaController::class, 'find_items']);
 
     Route::get('/lists/find_lists_by_month_year', [ListaController::class, 'find_lists_by_month_year']);

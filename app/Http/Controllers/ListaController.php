@@ -113,7 +113,55 @@ class ListaController extends Controller
         $json_list['categories']=$filtered_categories;
         return $json_list;
     }
+    
+        /**
+     * Display the specified resource.
+     *
+     * @param  str  $name
+     * @return \Illuminate\Http\Response
+     */
+    public function find_items_grouped_by_category(Request $request)
+    {
+        $list = Lista::where('id','=',$request->input('list_id'))->first();
+        $json_list = new Lista;
+        $json_list->id = $list->id;
+        $json_list->name = $list->name;
 
+        $all_categories=[];
+        foreach($list->items as $item){
+            $category=(new CategoryController)->show($item->category_id);
+            if (!in_array($category, $all_categories)){
+                $all_categories[] = $category;
+            }
+        }
+
+        $filtered_categories = [];
+        $data = [];
+        foreach($all_categories as $category){
+            $filtered_items = $list->items->where("category_id","=",$category->id);
+
+            $items = [];
+            foreach($filtered_items as $filtered_item){
+                $item = new Item;
+                $item->id = $filtered_item->id;
+                $item-> name = $filtered_item->name;
+                $item-> note = $filtered_item->note;
+                $item-> image = $filtered_item->image;
+                $item-> category_id = $filtered_item->category_id;
+                $item-> created_at = $filtered_item->created_at;
+                $item-> updated_at = $filtered_item->updated_at;
+                $item-> pivot = $filtered_item->pivot;
+                $items[] = $item;
+            }
+            $category->items = $items;
+            $filtered_categories[] =$category;
+        }
+
+        $json_list['categories']=$filtered_categories;
+        return $json_list;
+    }
+    
+    
     /**
      * Display items from a list.
      *
@@ -150,6 +198,7 @@ class ListaController extends Controller
             ->where("active","=","0")
             ->where("user_id","=",$request->input('user_id'))
             ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"),"=",$month_year)
+            ->orderBy('created_at',"DESC")
             ->get();
 
             $lists_by_month[] = $list;
