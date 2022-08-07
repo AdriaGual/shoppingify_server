@@ -183,7 +183,7 @@ class ListaController extends Controller
     public function find_lists_by_month_year(Request $request)
     {
         $months = DB::table("list")
-        ->selectRaw("DATE_FORMAT(created_at::TEXT, '%Y-%m') AS new_date")
+        ->selectRaw("DATE_FORMAT(created_at as text, '%Y-%m') AS new_date")
         ->where("active","=","0")
         ->where("user_id","=",$request->input('user_id'))
         ->orderBy('created_at',"DESC")
@@ -194,10 +194,10 @@ class ListaController extends Controller
         foreach ($months as $month){
             $month_year = $month->new_date;
             $list = DB::table("list")
-            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at::TEXT, '%Y-%m') AS new_date,DATE_FORMAT(created_at::TEXT, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at::TEXT, '%Y') AS year")
+            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at as text, '%Y-%m') AS new_date,DATE_FORMAT(created_at as text, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at as text, '%Y') AS year")
             ->where("active","=","0")
             ->where("user_id","=",$request->input('user_id'))
-            ->where(DB::raw("DATE_FORMAT(created_at::TEXT, '%Y-%m')"),"=",$month_year)
+            ->where(DB::raw("DATE_FORMAT(created_at as text, '%Y-%m')"),"=",$month_year)
             ->orderBy('created_at',"DESC")
             ->get();
 
@@ -216,7 +216,7 @@ class ListaController extends Controller
     public function get_number_items_by_month()
     {
         $months = DB::table("list")
-        ->selectRaw("DATE_FORMAT(created_at::TEXT, '%Y-%m') AS new_date")
+        ->selectRaw("DATE_FORMAT(created_at as text, '%Y-%m') AS new_date")
         ->where("active","=","0")
         ->orderBy('created_at',"DESC")
         ->groupBy('new_date')
@@ -227,9 +227,9 @@ class ListaController extends Controller
             $month_year = $month->new_date;
 
             $lists = DB::table("list")
-            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at::TEXT, '%Y-%m') AS new_date,DATE_FORMAT(created_at::TEXT, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at::TEXT, '%Y') AS year")
+            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at as text, '%Y-%m') AS new_date,DATE_FORMAT(created_at as text, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at as text, '%Y') AS year")
             ->where("active","=","0")
-            ->where(DB::raw("DATE_FORMAT(created_at::TEXT, '%Y-%m')"),"=",$month_year)
+            ->where(DB::raw("DATE_FORMAT(created_at as text, '%Y-%m')"),"=",$month_year)
             ->orderBy('created_at',"DESC")
             ->get();
 
