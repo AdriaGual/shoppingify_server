@@ -30,12 +30,13 @@
 
 ## Table of Contents
 
--   [Overview](#overview)
-    -   [Built With](#built-with)
--   [Features](#features)
--   [How to use](#how-to-use)
--   [Contact](#contact)
--   [Images](#images)
+- [Overview](#overview)
+  - [Built With](#built-with)
+  - [UML diagram](#uml-diagram)
+- [Features](#features)
+- [How to use](#how-to-use)
+- [Contact](#contact)
+- [Images](#images)
 
 <!-- OVERVIEW -->
 
@@ -49,17 +50,21 @@ Page where you can create shoping lists, save them, keep a record of them and wa
 
 <!-- This section should list any major frameworks that you built your project using. Here are a few examples.-->
 
--   [React](https://reactjs.org/)
--   [Tailwind](https://tailwindcss.com/)
--   [Laravel](https://laravel.com/)
--   [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/)
--   [Axios](https://www.axios.com/)
--   [React Hook Form](https://react-hook-form.com/)
--   [React Hot Toast](https://react-hot-toast.com/)
--   [React Icons](https://react-icons.github.io/react-icons/)
--   [React Router](https://reactrouter.com/)
--   [Zustand](https://github.com/pmndrs/zustand)
--   [Recharts](https://recharts.org/en-US/)
+- [React](https://reactjs.org/)
+- [Tailwind](https://tailwindcss.com/)
+- [Laravel](https://laravel.com/)
+- [React Query](https://tanstack.com/query/v4/?from=reactQueryV3&original=https://react-query-v3.tanstack.com/)
+- [Axios](https://www.axios.com/)
+- [React Hook Form](https://react-hook-form.com/)
+- [React Hot Toast](https://react-hot-toast.com/)
+- [React Icons](https://react-icons.github.io/react-icons/)
+- [React Router](https://reactrouter.com/)
+- [Zustand](https://github.com/pmndrs/zustand)
+- [Recharts](https://recharts.org/en-US/)
+
+### UML diagram
+
+![screenshot](https://res.cloudinary.com/drws2krnb/image/upload/v1659893413/uml_shoppingify.drawio_quwgfa.png)
 
 ## Features
 
@@ -116,7 +121,7 @@ $ php artisan serve
 
 ## Contact
 
--   Website [adriagual.tk](adriagual.tk)
--   GitHub [@AdriaGual](https://github.com/AdriaGual/)
--   Twitter [@walie_6](https://twitter.com/walie_6)
--   Linkedin [@Adrià Gual](https://www.linkedin.com/in/adri%C3%A0-gual-l%C3%B3pez-100005173/)
+- Website [adriagual.tk](adriagual.tk)
+- GitHub [@AdriaGual](https://github.com/AdriaGual/)
+- Twitter [@walie_6](https://twitter.com/walie_6)
+- Linkedin [@Adrià Gual](https://www.linkedin.com/in/adri%C3%A0-gual-l%C3%B3pez-100005173/)
