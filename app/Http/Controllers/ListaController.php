@@ -194,7 +194,7 @@ class ListaController extends Controller
         foreach ($months as $month){
             $month_year = $month->new_date;
             $list = DB::table("list")
-            ->selectRaw("id,name,canceled,to_char(created_at , 'YYYY-MM') AS new_date,to_char(created_at , 'DD.MM.YYYY') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,to_char(created_at , 'YYYY') AS year")
+            ->selectRaw("id,name,canceled,to_char(created_at , 'YYYY-MM') AS new_date,to_char(created_at , 'DD.MM.YYYY') AS created_at, to_char(created_at,'Day') AS day,MONTHNAME(created_at) AS month,to_char(created_at , 'YYYY') AS year")
             ->where("active","=","0")
             ->where("user_id","=",$request->input('user_id'))
             ->where(DB::raw("to_char(created_at , 'YYYY-MM')"),"=",$month_year)
@@ -227,7 +227,7 @@ class ListaController extends Controller
             $month_year = $month->new_date;
 
             $lists = DB::table("list")
-            ->selectRaw("id,name,canceled,to_char(created_at , 'YYYY-MM') AS new_date,to_char(created_at , 'DD.MM.YYYY') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,to_char(created_at , 'YYYY') AS year")
+            ->selectRaw("id,name,canceled,to_char(created_at , 'YYYY-MM') AS new_date,to_char(created_at , 'DD.MM.YYYY') AS created_at, to_char(created_at,'Day') AS day,MONTHNAME(created_at) AS month,to_char(created_at , 'YYYY') AS year")
             ->where("active","=","0")
             ->where(DB::raw("to_char(created_at , 'YYYY-MM')"),"=",$month_year)
             ->orderBy('created_at',"DESC")
