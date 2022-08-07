@@ -208,6 +208,50 @@ class ListaController extends Controller
     }
 
     /**
+     * Display inactive lists grouped by month and year.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function get_number_items_by_month()
+    {
+        $months = DB::table("list")
+        ->selectRaw("DATE_FORMAT(created_at, '%Y-%m') AS new_date")
+        ->where("active","=","0")
+        ->orderBy('created_at',"DESC")
+        ->groupBy('new_date')
+        ->get();
+
+        $lists_by_month = [];
+        foreach ($months as $month){
+            $month_year = $month->new_date;
+
+            $lists = DB::table("list")
+            ->selectRaw("id,name,canceled,DATE_FORMAT(created_at, '%Y-%m') AS new_date,DATE_FORMAT(created_at, '%d.%m.%y') AS created_at, DAYNAME(created_at) AS day,MONTHNAME(created_at) AS month,DATE_FORMAT(created_at, '%Y') AS year")
+            ->where("active","=","0")
+            ->where(DB::raw("DATE_FORMAT(created_at, '%Y-%m')"),"=",$month_year)
+            ->orderBy('created_at',"DESC")
+            ->get();
+
+            $count = 0;
+            foreach ($lists as $list){
+                $items = DB::table("item_list")
+                ->selectRaw('COUNT(*) AS count')
+                ->where("lista_id","=",$list->id)
+                ->get();
+                $count = $count + $items[0]->count;
+            }      
+            $month_items=[];
+            $month_items["name"] = $lists[0]->month;
+            $month_items["count"] = $count;
+            $lists_by_month[] = $month_items;
+        }
+        
+        return $lists_by_month;
+    }
+
+
+    /**
      * Add an item to a list.
      *
      * @param  int  $id
